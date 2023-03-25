@@ -10,13 +10,13 @@ namespace Problem02.Stack.Tests
     public class StackTests
     {
         private IAbstractStack<int> stack;
-        private System.Collections.Generic.Stack<int> builtInStack;
+        private Stack<int> builtInStack;
 
         [SetUp]
         public void InitializeStack()
         {
-            this.stack = new Problem02.Stack.Stack<int>();
-            this.builtInStack = new System.Collections.Generic.Stack<int>();
+            this.stack = new CustomStack<int>();
+            this.builtInStack = new Stack<int>();
         }
 
         private static IEnumerable<int[]> RandomCollections()

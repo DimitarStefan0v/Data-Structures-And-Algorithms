@@ -10,13 +10,13 @@ namespace Problem03.Queue.Tests
     public class QueueTests
     {
         private IAbstractQueue<int> queue;
-        private System.Collections.Generic.Queue<int> builtInQueue;
+        private Queue<int> builtInQueue;
 
         [SetUp]
         public void InitializeQueue()
         {
-            this.queue = new Problem03.Queue.Queue<int>();
-            this.builtInQueue = new System.Collections.Generic.Queue<int>();
+            this.queue = new CustomQueue<int>();
+            this.builtInQueue = new Queue<int>();
         }
 
         private static IEnumerable<int[]> RandomCollections()
