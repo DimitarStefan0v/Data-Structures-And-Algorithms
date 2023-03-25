@@ -14,7 +14,7 @@ namespace Problem01.List.Tests
         [SetUp]
         public void InitializeList()
         {
-            this.list = new Problem01.List.List<int>();
+            this.list = new CustomList<int>();
         }
 
         private static IEnumerable<int[]> RandomCollections()
