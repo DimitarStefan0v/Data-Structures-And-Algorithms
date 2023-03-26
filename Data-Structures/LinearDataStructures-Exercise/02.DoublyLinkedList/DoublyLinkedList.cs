@@ -6,46 +6,143 @@
 
     public class DoublyLinkedList<T> : IAbstractLinkedList<T>
     {
+        private class Node
+        {
+            public Node Next { get; set; }
+
+            public Node Previous { get; set; }
+
+            public T Value { get; set; }
+
+            public Node(T value)
+            {
+                this.Value = value;
+            }
+        }
+
+        private Node head;
+
+        private Node tail;
+
         public int Count { get; private set; }
 
         public void AddFirst(T item)
         {
-            throw new NotImplementedException();
+            var newNode = new Node(item);
+
+            if (this.Count == 0)
+            {
+                this.head = newNode;
+                this.tail = newNode;
+            }
+            else
+            {
+                this.head.Previous = newNode;
+                newNode.Next = this.head;
+                this.head = newNode;
+            }
+
+            this.Count++;
         }
 
         public void AddLast(T item)
         {
-            throw new NotImplementedException();
+            var newNode = new Node(item);
+
+            if (this.Count == 0)
+            {
+                this.head = newNode;
+                this.tail = newNode;
+            }
+            else
+            {
+                newNode.Previous = this.tail;
+                this.tail.Next = newNode;
+                this.tail = newNode;
+            }
+
+            this.Count++;
         }
 
         public T GetFirst()
         {
-            throw new NotImplementedException();
+            this.CheckIfListIsEmpty();
+            return this.head.Value;
         }
 
         public T GetLast()
         {
-            throw new NotImplementedException();
+            this.CheckIfListIsEmpty();
+            return this.tail.Value;
         }
 
         public T RemoveFirst()
         {
-            throw new NotImplementedException();
+            this.CheckIfListIsEmpty();
+
+            var currentHead = this.head;
+
+            if (this.head.Next == null)
+            {
+                this.head = null;
+                this.tail = null;
+            }
+            else
+            {
+                var newHead = this.head.Next;
+                newHead.Previous = null;
+                this.head = newHead;
+            }
+
+            this.Count--;
+
+            return currentHead.Value;
         }
 
         public T RemoveLast()
         {
-            throw new NotImplementedException();
+            this.CheckIfListIsEmpty();
+
+            var currentTail = this.tail;
+
+            if (this.tail.Previous == null)
+            {
+                this.head = null;
+                this.tail = null;
+            }
+            else
+            {
+                var newTail = this.tail.Previous;
+                newTail.Next = null;
+                this.tail = newTail;
+            }
+
+            this.Count--;
+
+            return currentTail.Value;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var node = this.head;
+            while (node != null)
+            {
+                yield return node.Value;
+                node = node.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
+        }
+
+        private void CheckIfListIsEmpty()
+        {
+            if (this.Count == 0)
+            {
+                throw new InvalidOperationException("Doubly linked list is empty");
+            }
         }
     }
 }
