@@ -16,6 +16,8 @@
             public T Value { get; }
             public Node Left { get; set; }
             public Node Right { get; set; }
+
+            public int Count { get; set; }
         }
 
         private Node root;
@@ -53,49 +55,191 @@
             return new BinarySearchTree<T>(current);
         }
 
-        public void Delete(T element)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteMax()
-        {
-            throw new NotImplementedException();
-        }
-
         public void DeleteMin()
         {
-            throw new NotImplementedException();
-        }
+            if (this.root == null)
+            {
+                throw new InvalidOperationException();
+            }
 
-        public int Count()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Rank(T element)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Select(int rank)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Ceiling(T element)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Floor(T element)
-        {
-            throw new NotImplementedException();
+            this.root = this.DeleteMin(this.root);
         }
 
         public IEnumerable<T> Range(T startRange, T endRange)
         {
-            throw new NotImplementedException();
+            Queue<T> queue = new Queue<T>();
+
+            this.Range(this.root, queue, startRange, endRange);
+
+            return queue;
+        }
+
+        public void Delete(T element)
+        {
+            if (this.root == null)
+            {
+                throw new InvalidOperationException();
+            }
+            this.root = this.Delete(element, this.root);
+        }
+
+        public void DeleteMax()
+        {
+            if (this.root == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            this.root = this.DeleteMax(this.root);
+        }
+
+        public int Count()
+        {
+            return this.Count(this.root);
+        }
+
+        public int Rank(T element)
+        {
+            return this.Rank(element, this.root);
+        }
+
+        public T Select(int rank)
+        {
+            Node node = this.Select(rank, this.root);
+            if (node == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return node.Value;
+        }
+
+        public T Ceiling(T element)
+        {
+            return this.Select(this.Rank(element) + 1);
+        }
+
+        public T Floor(T element)
+        {
+            return this.Select(this.Rank(element) - 1);
+        }
+
+        private Node DeleteMin(Node node)
+        {
+            if (node.Left == null)
+            {
+                return node.Right;
+            }
+
+            node.Left = this.DeleteMin(node.Left);
+            node.Count = 1 + this.Count(node.Left) + this.Count(node.Right);
+
+            return node;
+        }
+
+        private int Rank(T element, Node node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            int compare = element.CompareTo(node.Value);
+
+            if (compare < 0)
+            {
+                return this.Rank(element, node.Left);
+            }
+
+            if (compare > 0)
+            {
+                return 1 + this.Count(node.Left) + this.Rank(element, node.Right);
+            }
+
+            return this.Count(node.Left);
+        }
+
+        private Node DeleteMax(Node node)
+        {
+            if (node.Right == null)
+            {
+                return node.Left;
+            }
+
+            node.Right = this.DeleteMax(node.Right);
+            node.Count = 1 + this.Count(node.Left) + this.Count(node.Right);
+
+            return node;
+        }
+
+        private Node Select(int rank, Node node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            int leftCount = this.Count(node.Left);
+            if (leftCount == rank)
+            {
+                return node;
+            }
+
+            if (leftCount > rank)
+            {
+                return this.Select(rank, node.Left);
+            }
+
+            return this.Select(rank - (leftCount + 1), node.Right);
+        }
+
+        private Node Delete(T element, Node node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            int compare = element.CompareTo(node.Value);
+
+            if (compare < 0)
+            {
+                node.Left = this.Delete(element, node.Left);
+            }
+            else if (compare > 0)
+            {
+                node.Right = this.Delete(element, node.Right);
+            }
+            else
+            {
+                if (node.Right == null)
+                {
+                    return node.Left;
+                }
+                if (node.Left == null)
+                {
+                    return node.Right;
+                }
+
+                Node temp = node;
+                node = this.FindMin(temp.Right);
+                node.Right = this.DeleteMin(temp.Right);
+                node.Left = temp.Left;
+
+            }
+            node.Count = this.Count(node.Left) + this.Count(node.Right) + 1;
+
+            return node;
+        }
+
+        private Node FindMin(Node node)
+        {
+            if (node.Left == null)
+            {
+                return node;
+            }
+
+            return this.FindMin(node.Left);
         }
 
         private Node FindElement(T element)
@@ -148,7 +292,32 @@
                 node.Right = this.Insert(element, node.Right);
             }
 
+            node.Count = 1 + this.Count(node.Left) + this.Count(node.Right);
             return node;
+        }
+
+        private void Range(Node node, Queue<T> queue, T startRange, T endRange)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            int nodeInLowerRange = startRange.CompareTo(node.Value);
+            int nodeInHigherRange = endRange.CompareTo(node.Value);
+
+            if (nodeInLowerRange < 0)
+            {
+                this.Range(node.Left, queue, startRange, endRange);
+            }
+            if (nodeInLowerRange <= 0 && nodeInHigherRange >= 0)
+            {
+                queue.Enqueue(node.Value);
+            }
+            if (nodeInHigherRange > 0)
+            {
+                this.Range(node.Right, queue, startRange, endRange);
+            }
         }
 
         private void EachInOrder(Node node, Action<T> action)
@@ -161,6 +330,16 @@
             this.EachInOrder(node.Left, action);
             action(node.Value);
             this.EachInOrder(node.Right, action);
+        }
+
+        private int Count(Node node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            return node.Count;
         }
     }
 }
