@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateVectors", "Generate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAllPathsInLabyrinth", "FindAllPathsInLabyrinth\FindAllPathsInLabyrinth.csproj", "{6B2E6196-D5C3-45AC-AEDF-28304ED5BB19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueensPuzzle", "QueensPuzzle\QueensPuzzle.csproj", "{B654B7F0-9A4E-4195-B45F-EC282AF6EE3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6B2E6196-D5C3-45AC-AEDF-28304ED5BB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B2E6196-D5C3-45AC-AEDF-28304ED5BB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B2E6196-D5C3-45AC-AEDF-28304ED5BB19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B654B7F0-9A4E-4195-B45F-EC282AF6EE3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B654B7F0-9A4E-4195-B45F-EC282AF6EE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B654B7F0-9A4E-4195-B45F-EC282AF6EE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B654B7F0-9A4E-4195-B45F-EC282AF6EE3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
