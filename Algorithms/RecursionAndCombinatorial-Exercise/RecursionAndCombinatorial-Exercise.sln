@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedAreasInAMatrix", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema", "Cinema\Cinema.csproj", "{8A146912-CA31-4F73-B0FA-3F6A0B72C9D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolTeams", "SchoolTeams\SchoolTeams.csproj", "{B461A592-6603-411F-8183-374346437B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8A146912-CA31-4F73-B0FA-3F6A0B72C9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A146912-CA31-4F73-B0FA-3F6A0B72C9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A146912-CA31-4F73-B0FA-3F6A0B72C9D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B461A592-6603-411F-8183-374346437B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B461A592-6603-411F-8183-374346437B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B461A592-6603-411F-8183-374346437B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B461A592-6603-411F-8183-374346437B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
